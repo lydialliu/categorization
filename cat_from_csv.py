@@ -146,7 +146,7 @@ def mlp_model(layers, units, dropout_rate, input_shape, num_classes):
         An MLP model instance.
     """
 
-    op_units = 14
+    op_units = 28
     op_activation = 'softmax'
 
     model = models.Sequential()
@@ -162,7 +162,7 @@ def mlp_model(layers, units, dropout_rate, input_shape, num_classes):
 
 def train_ngram_model(data,
                       learning_rate=1e-3,
-                      epochs=50,
+                      epochs=40,
                       batch_size=6,
                       layers=2,
                       units=64,
@@ -188,7 +188,7 @@ def train_ngram_model(data,
 
 
     (train_texts, train_labels), (val_texts, val_labels) = data
-    num_classes = 14
+    num_classes = 26
 
     # Vectorize texts.
     x_train, x_val = ngram_vectorize(
@@ -258,12 +258,12 @@ def third_largest(lst):
 
 
 if __name__ == '__main__':
-    label_to_cat, (train_texts, train_labels), (test_texts, test_labels) = load_cat_dataset('cat/ml_data_part2_copy_view.csv', 125)
+    label_to_cat, (train_texts, train_labels), (test_texts, test_labels) = load_cat_dataset('cat/final_data_view.csv', 10)
     raw_predictions, history = train_ngram_model(((train_texts, train_labels), (test_texts, test_labels)))
-    predictions = []
+    label_predictions = []
     top_three_predictions = []
     for row in raw_predictions:
-        predictions.append(np.argmax(row))
+        label_predictions.append(np.argmax(row))
         top_three_predictions.append({1: np.argmax(row), 2: second_largest(row), 3 : third_largest(row)})
 
     # Accuracy

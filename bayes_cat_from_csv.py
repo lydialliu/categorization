@@ -24,7 +24,7 @@ def get_data(data_path, seed = 123):
     id, name, cb_desc, pb_desc, cat, cat_id
     """
 
-    with open(os.path.join(cat_data_path, "ml_data_part2_copy_view.csv")) as datafile:
+    with open(os.path.join(cat_data_path, "final_data_view.csv")) as datafile:
         i = -1  # b/c first row isn't data
         reader = csv.reader(datafile, quoting=csv.QUOTE_ALL)
         for row in reader:  # each row is a list
@@ -107,7 +107,6 @@ class NaiveModel(object):
 
     def predict(self, X):
         result = []
-        test_companies = []
         for x in X:
             counts = self.get_word_counts(self.tokenize(x))
             print(counts)
@@ -132,14 +131,16 @@ class NaiveModel(object):
             """
             max_score_label = max(scores, key=scores.get)
             result.append(max_score_label)
-        return result, test_companies
+        return result
+
 
 if __name__ == '__main__':
-    data, X, y = get_data('', 103)
+    data, X, y = get_data('', 11)
     MNB = NaiveModel()
     MNB.fit(X[10:], y[10:])
 
-    pred, test_companies = MNB.predict(X[:10])
+    test_texts = X[:10]
+    pred = MNB.predict(test_texts)
     true = y[:10]
 
     accuracy = sum(1 for i in range(len(pred)) if pred[i] == true[i]) / float(len(pred))
