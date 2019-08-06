@@ -135,7 +135,7 @@ class NaiveModel(object):
         return result, test_companies
 
 if __name__ == '__main__':
-    data, X, y = get_data('', 103)
+    data, X, y = get_data('', 123)
     MNB = NaiveModel()
     MNB.fit(X[10:], y[10:])
 
