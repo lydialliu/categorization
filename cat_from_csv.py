@@ -16,8 +16,6 @@ import csv
 
 
 
-# writer = tf.summary.FileWriter(["./graphs", [graph]])
-
 def load_cat_dataset(data_path, seed=123):
     """Loads the categories dataset.
 
@@ -258,7 +256,7 @@ def third_largest(lst):
 
 
 if __name__ == '__main__':
-    label_to_cat, (train_texts, train_labels), (test_texts, test_labels) = load_cat_dataset('cat/final_data_view.csv', 10)
+    label_to_cat, (train_texts, train_labels), (test_texts, test_labels) = load_cat_dataset('cat_data/final_data_view.csv', 10)
     raw_predictions, history = train_ngram_model(((train_texts, train_labels), (test_texts, test_labels)))
     label_predictions = []
     top_three_predictions = []

@@ -16,7 +16,7 @@ nltk.download('stopwords')
 
 def get_data(data_path, seed = 123):
 
-    cat_data_path = os.path.join(data_path, 'cat')
+    cat_data_path = os.path.join(data_path, 'cat_data')
     data = []
 
     """
@@ -107,6 +107,7 @@ class NaiveModel(object):
 
     def predict(self, X):
         result = []
+        test_companies = []
         for x in X:
             counts = self.get_word_counts(self.tokenize(x))
             print(counts)
@@ -131,16 +132,14 @@ class NaiveModel(object):
             """
             max_score_label = max(scores, key=scores.get)
             result.append(max_score_label)
-        return result
-
+        return result, test_companies
 
 if __name__ == '__main__':
-    data, X, y = get_data('', 11)
+    data, X, y = get_data('', 103)
     MNB = NaiveModel()
     MNB.fit(X[10:], y[10:])
 
-    test_texts = X[:10]
-    pred = MNB.predict(test_texts)
+    pred, test_companies = MNB.predict(X[:10])
     true = y[:10]
 
     accuracy = sum(1 for i in range(len(pred)) if pred[i] == true[i]) / float(len(pred))
